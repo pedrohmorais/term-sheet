@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DealService } from '@core/services/deal.service';
 import { DealFiltersComponent } from '../deal-filters/deal-filters.component';
@@ -41,17 +41,22 @@ import { MatTooltip } from '@angular/material/tooltip';
   templateUrl: './deal-list.component.html',
   styleUrl: './deal-list.component.scss'
 })
-export class DealListComponent {
+export class DealListComponent implements OnInit {
   private dealService = inject(DealService);
 
   deals$ = this.dealService.filteredDeals$;
   filters$ = this.dealService.filters$;
+  isLoading$ = this.dealService.isLoading$;
   totalCount$ = this.dealService.deals$.pipe(map(d => d.length));
   showForm = false;
 
   nameFilter$ = this.filters$.pipe(map(f => f.name));
 
   displayedColumns = ['name', 'address', 'purchasePrice', 'noi', 'capRate', 'actions'];
+
+  ngOnInit(): void {
+    this.dealService.loadDeals().subscribe();
+  }
 
   toggleForm(): void {
     this.showForm = !this.showForm;
@@ -62,7 +67,7 @@ export class DealListComponent {
   }
 
   removeDeal(id: string): void {
-    this.dealService.removeDeal(id);
+    this.dealService.removeDeal(id).subscribe();
   }
 
   trackById(_: number, deal: { id: string }): string {
