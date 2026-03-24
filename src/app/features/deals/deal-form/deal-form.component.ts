@@ -46,6 +46,7 @@ export class DealFormComponent implements OnInit, OnDestroy {
   });
 
   previewCapRate: number | null = null;
+  isSubmitting = false;
 
   get nameCtrl() { return this.form.get('name')!; }
   get priceCtrl() { return this.form.get('purchasePrice')!; }
@@ -77,15 +78,26 @@ export class DealFormComponent implements OnInit, OnDestroy {
       return;
     }
     const { name, purchasePrice, address, noi } = this.form.value;
+    this.isSubmitting = true;
+
     this.dealService.addDeal({
       name: name!,
       purchasePrice: purchasePrice!,
       address: address!,
       noi: noi!
-    });
-    this.dealAdded.emit();
-    this.form.reset();
-    this.previewCapRate = null;
+    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.dealAdded.emit();
+          this.form.reset();
+          this.previewCapRate = null;
+          this.isSubmitting = false;
+        },
+        error: () => {
+          this.isSubmitting = false;
+        }
+      });
   }
 
   onCancel(): void {
