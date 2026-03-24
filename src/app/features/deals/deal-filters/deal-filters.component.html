@@ -1,0 +1,34 @@
+<div class="filters" [formGroup]="form">
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Search by name</mat-label>
+    <input matInput formControlName="name" placeholder="e.g. Downtown, Miami…" />
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+
+  <div class="price-range">
+    <mat-form-field appearance="outline" class="price-field">
+      <mat-label>Min Price</mat-label>
+      <input matInput type="number" formControlName="purchasePriceMin" placeholder="Min" min="0" />
+      <span matPrefix>$</span>
+    </mat-form-field>
+
+    <span class="range-separator">–</span>
+
+    <mat-form-field appearance="outline" class="price-field">
+      <mat-label>Max Price</mat-label>
+      <input matInput type="number" formControlName="purchasePriceMax" placeholder="Max" min="0" />
+      <span matPrefix>$</span>
+    </mat-form-field>
+  </div>
+
+  <button
+    mat-stroked-button
+    type="button"
+    (click)="resetFilters()"
+    [disabled]="!hasActiveFilters"
+    class="reset-btn"
+  >
+    <mat-icon>clear</mat-icon>
+    Clear filters
+  </button>
+</div>

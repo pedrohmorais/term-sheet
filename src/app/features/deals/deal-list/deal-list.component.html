@@ -1,0 +1,108 @@
+<div class="deals-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1>Deal Pipeline</h1>
+      <p class="subtitle" *ngIf="totalCount$ | async as total">
+        {{ total }} deal{{ total !== 1 ? 's' : '' }} total
+      </p>
+    </div>
+    <button mat-raised-button color="primary" (click)="toggleForm()">
+      <mat-icon>{{ showForm ? 'close' : 'add' }}</mat-icon>
+      {{ showForm ? 'Cancel' : 'New Deal' }}
+    </button>
+  </div>
+
+  <!-- Add Deal Form -->
+  <mat-card *ngIf="showForm" class="form-card">
+    <app-deal-form
+      (dealAdded)="onDealAdded()"
+      (cancelled)="showForm = false"
+    />
+  </mat-card>
+
+  <!-- Filters -->
+  <div class="filters-section">
+    <app-deal-filters />
+  </div>
+
+  <!-- Results -->
+  <ng-container *ngIf="{ deals: deals$ | async, nameFilter: nameFilter$ | async, filters: filters$ | async } as vm">
+    <div class="results-info" *ngIf="vm.deals">
+      <span>Showing <strong>{{ vm.deals.length }}</strong> result{{ vm.deals.length !== 1 ? 's' : '' }}</span>
+    </div>
+
+    <!-- Table -->
+    <mat-card class="table-card">
+      <table mat-table [dataSource]="vm.deals" class="deals-table" *ngIf="vm.deals && vm.deals.length > 0; else emptyState">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Deal Name</th>
+          <td mat-cell *matCellDef="let deal" class="cell-name">
+            <app-highlight-text [text]="deal.name" [search]="vm.nameFilter ?? ''" />
+          </td>
+        </ng-container>
+
+        <!-- Address Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef>Address</th>
+          <td mat-cell *matCellDef="let deal" class="cell-muted">{{ deal.address }}</td>
+        </ng-container>
+
+        <!-- Purchase Price Column -->
+        <ng-container matColumnDef="purchasePrice">
+          <th mat-header-cell *matHeaderCellDef class="text-right">Purchase Price</th>
+          <td mat-cell *matCellDef="let deal" class="text-right cell-mono">
+            {{ deal.purchasePrice | usdCurrency }}
+          </td>
+        </ng-container>
+
+        <!-- NOI Column -->
+        <ng-container matColumnDef="noi">
+          <th mat-header-cell *matHeaderCellDef class="text-right">NOI</th>
+          <td mat-cell *matCellDef="let deal" class="text-right cell-mono">
+            {{ deal.noi | usdCurrency }}
+          </td>
+        </ng-container>
+
+        <!-- Cap Rate Column -->
+        <ng-container matColumnDef="capRate">
+          <th mat-header-cell *matHeaderCellDef class="text-center">Cap Rate</th>
+          <td mat-cell *matCellDef="let deal" class="text-center">
+            <span class="cap-rate-badge" [class]="'cap-rate-' + (deal.capRate | capRateStatus)">
+              {{ deal.capRate }}%
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let deal">
+            <button mat-icon-button color="warn" (click)="removeDeal(deal.id)" matTooltip="Delete deal">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+
+      <!-- Empty State -->
+      <ng-template #emptyState>
+        <div class="empty-state">
+          <mat-icon class="empty-icon">apartment</mat-icon>
+          <h3>No deals found</h3>
+          <p>
+            {{ (filters$ | async)?.name ? 'Try adjusting your filters.' : 'Get started by adding your first deal.' }}
+          </p>
+          <button mat-raised-button color="primary" (click)="showForm = true" *ngIf="!(filters$ | async)?.name">
+            <mat-icon>add</mat-icon>
+            Add a deal
+          </button>
+        </div>
+      </ng-template>
+    </mat-card>
+  </ng-container>
+</div>

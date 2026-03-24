@@ -1,0 +1,69 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="deal-form">
+  <div class="form-header">
+    <h2>Add New Deal</h2>
+    <p>Fill in the details below to add a new real estate deal.</p>
+  </div>
+
+  <div class="form-body">
+    <!-- Deal Name -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Deal Name *</mat-label>
+      <input matInput formControlName="name" placeholder="e.g. Downtown Seattle Retail Hub" />
+      <mat-error *ngIf="nameCtrl.hasError('required')">Name is required</mat-error>
+      <mat-error *ngIf="nameCtrl.hasError('minlength')">Min 3 characters</mat-error>
+      <mat-error *ngIf="nameCtrl.hasError('maxlength')">Max 120 characters</mat-error>
+    </mat-form-field>
+
+    <div class="form-row">
+      <!-- Purchase Price -->
+      <mat-form-field appearance="outline" class="form-col">
+        <mat-label>Purchase Price *</mat-label>
+        <input matInput type="number" formControlName="purchasePrice" placeholder="0" min="1" />
+        <span matPrefix>$&nbsp;</span>
+        <mat-error *ngIf="priceCtrl.hasError('required')">Required</mat-error>
+        <mat-error *ngIf="priceCtrl.hasError('min')">Must be positive</mat-error>
+      </mat-form-field>
+
+      <!-- NOI -->
+      <mat-form-field appearance="outline" class="form-col">
+        <mat-label>Net Operating Income *</mat-label>
+        <input matInput type="number" formControlName="noi" placeholder="0" min="0" />
+        <span matPrefix>$&nbsp;</span>
+        <mat-error *ngIf="noiCtrl.hasError('required')">Required</mat-error>
+        <mat-error *ngIf="noiCtrl.hasError('min')">Cannot be negative</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Cap Rate Preview -->
+    <div class="cap-rate-preview" *ngIf="previewCapRate !== null">
+      <div class="cap-rate-label">Calculated Cap Rate</div>
+      <div class="cap-rate-value" [class]="'cap-rate--' + capRateStatus">
+        {{ previewCapRate }}%
+      </div>
+      <div class="cap-rate-hint" [class]="'cap-rate-hint--' + capRateStatus">
+        <ng-container [ngSwitch]="capRateStatus">
+          <span *ngSwitchCase="'low'">⚠ Below typical range (5–12%)</span>
+          <span *ngSwitchCase="'healthy'">✓ Within healthy range (5–12%)</span>
+          <span *ngSwitchCase="'high'">⚡ Above typical range (5–12%)</span>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Address -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Address *</mat-label>
+      <input matInput formControlName="address" placeholder="e.g. 500 Pine Street, Seattle, WA 98101" />
+      <mat-error *ngIf="addressCtrl.hasError('required')">Address is required</mat-error>
+      <mat-error *ngIf="addressCtrl.hasError('minlength')">Min 5 characters</mat-error>
+    </mat-form-field>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button type="button" mat-stroked-button (click)="onCancel()">Cancel</button>
+      <button type="submit" mat-raised-button color="primary">
+        <mat-icon>add</mat-icon>
+        Add Deal
+      </button>
+    </div>
+  </div>
+</form>

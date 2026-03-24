@@ -1,0 +1,172 @@
+.deals-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  h1 {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 500;
+  }
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.subtitle {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.875rem;
+  margin: 0.25rem 0 0;
+}
+
+.form-card {
+  animation: slideDown 0.3s ease-out;
+  padding: 1.75rem;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 600px;
+  }
+}
+
+.filters-section {
+  padding: 1.25rem 1.5rem;
+}
+
+.results-info {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.6);
+
+  strong {
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+  }
+}
+
+.table-card {
+  overflow-x: auto;
+  padding: 0;
+}
+
+.deals-table {
+  width: 100%;
+  font-size: 0.875rem;
+
+  ::ng-deep {
+    .mdc-data-table__header-cell {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 1rem !important;
+    }
+
+    .mdc-data-table__cell {
+      padding: 1rem !important;
+      vertical-align: middle;
+    }
+
+    tr:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+  }
+}
+
+.cell-name {
+  font-weight: 500;
+}
+
+.cell-muted {
+  color: rgba(0, 0, 0, 0.6);
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.cap-rate-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.cap-rate-low {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+}
+
+.cap-rate-healthy {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.cap-rate-high {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+
+.empty-state {
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+
+  .empty-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  p {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  button {
+    margin-top: 0.5rem;
+  }
+}
+
+.table-row {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+  }
+}

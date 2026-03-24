@@ -1,0 +1,110 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+
+  ::ng-deep {
+    .mat-mdc-card-header {
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+.login-card__header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.brand-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.brand-term {
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+.brand-sheet {
+  font-weight: 700;
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.login-subtitle {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.9rem;
+  margin: 0 0 2rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.submit-btn {
+  margin-top: 0.5rem;
+  height: 40px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.error-alert {
+  padding: 0.75rem 1rem;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 4px;
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.demo-credentials {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  text-align: center;
+
+  p {
+    margin: 0.25rem 0;
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  code {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.75rem;
+  }
+}
