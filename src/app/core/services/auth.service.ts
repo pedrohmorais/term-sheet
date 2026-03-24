@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
+import { environment } from '@env/environment';
 import { AuthState, LoginCredentials, User } from '../models';
-
-const MOCK_USERS: Array<User & { password: string }> = [
-  { id: '1', username: 'admin', name: 'Admin User', password: 'admin123' },
-  { id: '2', username: 'demo', name: 'Demo User', password: 'demo123' }
-];
 
 const STORAGE_KEY = 'termsheet_user';
 
@@ -24,32 +20,28 @@ export class AuthService {
   readonly isAuthenticated$ = new BehaviorSubject<boolean>(!!this.loadUserFromStorage());
   readonly currentUser$ = new BehaviorSubject<User | null>(this.loadUserFromStorage());
 
-  constructor(private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   login(credentials: LoginCredentials): Observable<User> {
     this._state$.next({ ...this._state$.value, isLoading: true, error: null });
 
-    const user = MOCK_USERS.find(
-      u => u.username === credentials.username && u.password === credentials.password
-    );
-
-    if (!user) {
-      return throwError(() => new Error('Invalid username or password')).pipe(
-        tap({ error: (err) => {
-          this._state$.next({ user: null, isAuthenticated: false, isLoading: false, error: err.message });
-        }})
-      );
-    }
-
-    const { password: _, ...safeUser } = user;
-
-    return of(safeUser).pipe(
-      delay(600),
-      tap(u => {
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(u));
-        this._state$.next({ user: u, isAuthenticated: true, isLoading: false, error: null });
+    return this.http.post<User>(
+      `${environment.apiUrl}/auth/login`,
+      credentials
+    ).pipe(
+      tap(user => {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+        this._state$.next({ user, isAuthenticated: true, isLoading: false, error: null });
         this.isAuthenticated$.next(true);
-        this.currentUser$.next(u);
+        this.currentUser$.next(user);
+      }),
+      catchError(err => {
+        const errorMessage = err.error?.error || err.message || 'Login failed';
+        this._state$.next({ user: null, isAuthenticated: false, isLoading: false, error: errorMessage });
+        throw err;
       })
     );
   }
