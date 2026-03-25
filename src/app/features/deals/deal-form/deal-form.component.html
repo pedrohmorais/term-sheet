@@ -19,7 +19,7 @@
       <mat-form-field appearance="outline" class="form-col">
         <mat-label>Purchase Price *</mat-label>
         <input matInput type="number" formControlName="purchasePrice" placeholder="0" min="1" />
-        <span matPrefix>$&nbsp;</span>
+        <span matTextPrefix>$&nbsp;&nbsp;</span>
         <mat-error *ngIf="priceCtrl.hasError('required')">Required</mat-error>
         <mat-error *ngIf="priceCtrl.hasError('min')">Must be positive</mat-error>
       </mat-form-field>
@@ -28,7 +28,7 @@
       <mat-form-field appearance="outline" class="form-col">
         <mat-label>Net Operating Income *</mat-label>
         <input matInput type="number" formControlName="noi" placeholder="0" min="0" />
-        <span matPrefix>$&nbsp;</span>
+        <span matTextPrefix>$&nbsp;&nbsp;</span>
         <mat-error *ngIf="noiCtrl.hasError('required')">Required</mat-error>
         <mat-error *ngIf="noiCtrl.hasError('min')">Cannot be negative</mat-error>
       </mat-form-field>

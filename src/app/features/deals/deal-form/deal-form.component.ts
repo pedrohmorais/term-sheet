@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { DealService } from '@core/services/deal.service';
-import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel, MatError, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -15,17 +14,13 @@ import { MatIcon } from '@angular/material/icon';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatCard,
-    MatCardContent,
     MatFormField,
     MatLabel,
     MatInput,
     MatButton,
-    MatIconButton,
     MatIcon,
     MatError,
     MatPrefix,
-    MatSuffix
   ],
   templateUrl: './deal-form.component.html',
   styleUrl: './deal-form.component.scss'

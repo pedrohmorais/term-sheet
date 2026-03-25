@@ -5,7 +5,7 @@ import { AuthService } from '@core/services/auth.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +17,8 @@ import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
     MatButton,
     MatIcon,
     MatMenu,
-    MatMenuTrigger
+    MatMenuTrigger,
+    MatMenuItem,
   ],
   template: `
     <mat-toolbar color="primary" class="app-toolbar">

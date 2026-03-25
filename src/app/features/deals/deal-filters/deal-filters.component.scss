@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.25rem;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .filter-field {
@@ -29,6 +29,3 @@
   padding: 0 0.25rem;
 }
 
-.reset-btn {
-  white-space: nowrap;
-}
