@@ -9,9 +9,17 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Deal Name *</mat-label>
       <input matInput formControlName="name" placeholder="e.g. Downtown Seattle Retail Hub" />
-      <mat-error *ngIf="nameCtrl.hasError('required')">Name is required</mat-error>
-      <mat-error *ngIf="nameCtrl.hasError('minlength')">Min 3 characters</mat-error>
-      <mat-error *ngIf="nameCtrl.hasError('maxlength')">Max 120 characters</mat-error>
+      @if (nameCtrl.hasError('required')) {
+        <mat-error>Name is required</mat-error>
+      }
+
+      @if (nameCtrl.hasError('minlength')) {
+        <mat-error>Min 3 characters</mat-error>
+      }
+
+      @if (nameCtrl.hasError('maxlength')) {
+        <mat-error>Max 120 characters</mat-error>
+      }
     </mat-form-field>
 
     <div class="form-row">

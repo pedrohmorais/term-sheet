@@ -9,9 +9,9 @@ import { AuthService } from '@core/services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterOutlet, HeaderComponent],
   template: `
-    <ng-container *ngIf="authService.isAuthenticated$ | async">
+    @if (authService.isAuthenticated$ | async) {
       <app-header />
-    </ng-container>
+    }
     <main class="main-content">
       <router-outlet />
     </main>

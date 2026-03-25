@@ -7,7 +7,7 @@ import { HighlightTextComponent } from '@shared/components/highlight-text/highli
 import { UsdCurrencyPipe } from '@shared/pipes/usd-currency.pipe';
 import { CapRateStatusPipe } from '@shared/pipes/cap-rate-status.pipe';
 import { map } from 'rxjs';
-import { MatTable, MatHeaderCellDef, MatHeaderRowDef, MatRowDef, MatCellDef, MatColumnDef, MatHeaderCell, MatCell, MatRow } from '@angular/material/table';
+import { MatHeaderRow, MatTable, MatHeaderCellDef, MatHeaderRowDef, MatRowDef, MatCellDef, MatColumnDef, MatHeaderCell, MatCell, MatRow } from '@angular/material/table';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatCard } from '@angular/material/card';
@@ -23,6 +23,7 @@ import { MatTooltip } from '@angular/material/tooltip';
     HighlightTextComponent,
     UsdCurrencyPipe,
     CapRateStatusPipe,
+    MatHeaderRow,
     MatTable,
     MatHeaderCellDef,
     MatHeaderRowDef,

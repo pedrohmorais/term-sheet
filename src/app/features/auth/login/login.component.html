@@ -10,9 +10,11 @@
       <h1 class="login-title">Welcome back</h1>
       <p class="login-subtitle">Sign in to manage your real estate deals</p>
 
-      <div *ngIf="state.error" class="error-alert">
-        <strong>Error:</strong> {{ state.error }}
-      </div>
+      @if (state.error) {
+        <div class="error-alert">
+          <strong>Error:</strong> {{ state.error }}
+        </div>
+      }
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
         <mat-form-field appearance="outline" class="full-width">

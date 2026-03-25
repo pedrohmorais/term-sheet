@@ -26,18 +26,20 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
         <span class="logo-term">Term</span><span class="logo-sheet">Sheet</span>
       </a>
       <span class="spacer"></span>
-      <div *ngIf="auth.isAuthenticated$ | async" class="user-section">
-        <button mat-button [matMenuTriggerFor]="menu" class="user-button">
-          <mat-icon>account_circle</mat-icon>
-          {{ (auth.currentUser$ | async)?.name }}
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="auth.logout()">
-            <mat-icon>logout</mat-icon>
-            <span>Sign out</span>
+      @if (auth.isAuthenticated$ | async) {
+        <div class="user-section">
+          <button mat-button [matMenuTriggerFor]="menu" class="user-button">
+            <mat-icon>account_circle</mat-icon>
+            {{ (auth.currentUser$ | async)?.name }}
           </button>
-        </mat-menu>
-      </div>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="auth.logout()">
+              <mat-icon>logout</mat-icon>
+              <span>Sign out</span>
+            </button>
+          </mat-menu>
+        </div>
+      }
     </mat-toolbar>
   `,
   styles: [`
