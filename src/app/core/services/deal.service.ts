@@ -1,12 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
-import { environment } from '@env/environment';
+import { environment } from '@environments/environment';
 import { CreateDealDto, Deal, DealFilters, DEFAULT_FILTERS } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class DealService {
   private http = inject(HttpClient);
+  private readonly API_URL = environment.apiUrl;
 
   private readonly _deals$ = new BehaviorSubject<Deal[]>([]);
   private readonly _filters$ = new BehaviorSubject<DealFilters>(DEFAULT_FILTERS);
@@ -29,7 +30,7 @@ export class DealService {
 
   loadDeals(): Observable<Deal[]> {
     this._isLoading$.next(true);
-    return this.http.get<Deal[]>(`${environment.apiUrl}/deals`).pipe(
+    return this.http.get<Deal[]>(`${this.API_URL}/deals`).pipe(
       tap(deals => {
         this._deals$.next(deals);
         this._isLoading$.next(false);
@@ -49,7 +50,7 @@ export class DealService {
       createdAt: new Date().toISOString()
     };
 
-    return this.http.post<Deal>(`${environment.apiUrl}/deals`, newDeal).pipe(
+    return this.http.post<Deal>(`${this.API_URL}/deals`, newDeal).pipe(
       tap(deal => {
         this._deals$.next([...this._deals$.value, deal]);
       })
@@ -57,7 +58,7 @@ export class DealService {
   }
 
   removeDeal(id: string): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}/deals/${id}`).pipe(
+    return this.http.delete<void>(`${this.API_URL}/deals/${id}`).pipe(
       tap(() => {
         this._deals$.next(this._deals$.value.filter(d => d.id !== id));
       })

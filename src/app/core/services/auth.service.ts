@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
-import { environment } from '@env/environment';
+import { environment } from '@environments';
 import { AuthState, LoginCredentials, User } from '../models';
 
 const STORAGE_KEY = 'termsheet_user';
