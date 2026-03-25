@@ -9,6 +9,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "mock": "node mock-server/server.js",
+    "e2e": "cypress open",
+    "e2e:headless": "cypress run --headless",
+    "e2e:dev": "concurrently \"npm run dev\" \"npm run e2e:headless\"",
     "dev": "concurrently \"npm run mock\" \"ng serve --proxy-config proxy.conf.json\""
   },
   "dependencies": {
@@ -32,6 +35,7 @@
     "@angular/compiler-cli": "^17.0.0",
     "@types/jasmine": "~5.1.0",
     "concurrently": "^8.2.2",
+    "cypress": "^15.13.0",
     "jasmine-core": "~5.1.0",
     "json-server": "^0.17.4",
     "karma": "~6.4.0",

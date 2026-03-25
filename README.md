@@ -103,11 +103,22 @@ A realistic cap rate is 5–12%. The app communicates this:
 - **Blue badge** — above 12% (unusually high, may signal risk)
 This logic lives in `CapRateStatusPipe` — a pure, testable transformation.
 
-## What Would Come Next (Production Roadmap)
+## 🧪 End-to-End Testing (Cypress)
 
-- **HTTP layer** — swap `DealService` mock data for real `HttpClient` calls; add an `HttpInterceptor` for auth headers
-- **NgRx or SignalStore** — if state complexity grows
-- **Angular Signals** — incrementally migrate `BehaviorSubject` observables to signals (Angular 17 stable signals)
-- **Unit tests** — `DealService`, `AuthService`, pipes, and guards are all pure/injectable and straightforward to test
-- **E2E tests** — Cypress or Playwright for login flow and deal CRUD
-- **Pagination** — virtual scroll via `@angular/cdk` for large datasets
+This project uses **Cypress** for end-to-end (E2E) testing to ensure that critical user flows work as expected from a real user’s perspective.
+
+**Cypress** is a modern testing framework that runs directly in the browser, providing fast, reliable, and consistent test execution. It is widely used in frontend applications because it allows developers to simulate real user interactions, catch regressions early, and improve overall application quality.
+
+---
+
+### 📦 Available Scripts
+
+```bash
+# Opens Cypress in interactive mode (GUI)
+npm run e2e
+
+# Runs all tests in headless mode (terminal only)
+npm run e2e:headless
+
+# Starts the application and runs E2E tests automatically
+npm run e2e:dev
